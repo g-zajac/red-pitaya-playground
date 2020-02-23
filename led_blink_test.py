@@ -1,7 +1,7 @@
 from redpitaya.overlay.mercury import mercury as FPGA
 overlay = FPGA()
 LED = FPGA.led
-led1 = LED(3, 0)
+led1 = LED(0, 0)
 # blink 10 times
 import time
 for _ in range(10):
