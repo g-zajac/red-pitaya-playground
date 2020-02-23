@@ -5,18 +5,7 @@ import redpitaya_scpi as scpi
 
 rp_s = scpi.scpi(sys.argv[1])
 
-rp_s.tx_txt('ACQ:START')
-rp_s.tx_txt('ACQ:TRIG NOW')
-
-while 1:
-    rp_s.tx_txt('ACQ:TRIG:STAT?')
-    if rp_s.rx_txt() == 'TD':
-        break
-
-rp_s.tx_txt('ACQ:SOUR1:DATA?')
-buff_string = rp_s.rx_txt()
-buff_string = buff_string.strip('{}\n\r').replace("  ", "").split(',')
-buff = list(map(float, buff_string))
-
-print(buff)
-time.sleep(0.1)
+for i in range(4):
+    rp_s.tx_txt('ANALOG:PIN? AIN' + str(i))
+    value = float(rp_s.rx_txt())
+    print ("Measured voltage on AI["+str(i)+"] = "+str(value)+"V")
