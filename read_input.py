@@ -1,10 +1,22 @@
-# read_input.py
-from redpitaya.overlay.mercury import mercury as FPGA
-overlay = FPGA()
-GPIO = FPGA.gpio
-gpio_i = GPIO('n', 2, "in")
-import time
-while True:
-    x=gpio_i.read()
-    print(x)
-    time.sleep(0.5)
+#!/usr/bin/python
+
+import sys
+import redpitaya_scpi as scpi
+
+rp_s = scpi.scpi(sys.argv[1])
+
+rp_s.tx_txt('ACQ:START')
+rp_s.tx_txt('ACQ:TRIG NOW')
+
+while 1:
+    rp_s.tx_txt('ACQ:TRIG:STAT?')
+    if rp_s.rx_txt() == 'TD':
+        break
+
+rp_s.tx_txt('ACQ:SOUR1:DATA?')
+buff_string = rp_s.rx_txt()
+buff_string = buff_string.strip('{}\n\r').replace("  ", "").split(',')
+buff = list(map(float, buff_string))
+
+print(buff)
+time.sleep(0.1)
