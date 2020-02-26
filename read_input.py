@@ -19,4 +19,4 @@ buff_string = buff_string.strip('{}\n\r').replace("  ", "").split(',')
 buff = list(map(float, buff_string))
 
 print(buff)
-time.sleep(0.1)
+# view rawacquire_trigger_posedge.py
