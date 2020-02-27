@@ -14,7 +14,7 @@ for i in range(8):
 osc_startup()
 
 # Make client channels to send packets.
-osc_udp_client("10.0.10.101", 8888, "redpitaya")
+osc_udp_client("10.0.10.101", 1234, "redpitaya")
 
 # Build a simple message and send it.
 msg = oscbuildparse.OSCMessage("/test/me", ",sif", ["text", 672, 8.871])
@@ -26,7 +26,7 @@ osc_send(msg, "redpitaya")
 
 # Buils a complete bundle, and postpone its executions by 10 sec.
 # exectime = time.time() + 10   # execute in 10 seconds
-# msg1 = oscbuildparse.OSCMessage("/sound/levels", None, [1, 5, 3])
+msg1 = oscbuildparse.OSCMessage("/sound/levels", None, [1, 5, 3])
 # msg2 = oscbuildparse.OSCMessage("/sound/bits", None, [32])
 # msg3 = oscbuildparse.OSCMessage("/sound/freq", None, [42000])
 # bun = oscbuildparse.OSCBundle(oscbuildparse.unixtime2timetag(exectime),
@@ -55,3 +55,7 @@ while(True):
     # time.sleep(1)
     rp_s.tx_txt('DIG:PIN LED1,0')
     time.sleep(0.5)
+
+
+# # Properly close the system.
+osc_terminate()
