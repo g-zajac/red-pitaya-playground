@@ -1,5 +1,5 @@
 The SCPI server can be started as a systemd service.
-- systemctl start scpi
+- systemctl start redpitaya_scpi &
 
 To start the server at boot, the service should be enabled.
 -  systemctl enable scpi
